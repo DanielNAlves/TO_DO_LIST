@@ -10,7 +10,7 @@ export const badgeVariants = cva(
       variant: {
         none: "",
         primary: "bg-green-light",
-        secundary: "bg-pink-light",
+        secondary: "bg-pink-light",
       },
       size: {
         sm: "py-0.5 px-2",
@@ -28,7 +28,7 @@ export const badgeTextVariants = cva("", {
     variant: {
       none: "",
       primary: "text-green-dark",
-      secundary: "text-pink-dark",
+      secondary: "text-pink-dark",
     },
   },
   defaultVariants: { variant: "primary" },
