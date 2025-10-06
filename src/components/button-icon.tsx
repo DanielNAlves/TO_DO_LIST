@@ -2,10 +2,11 @@ import React from "react";
 import Icon from "./icon";
 import { cva, type VariantProps } from "class-variance-authority";
 import Skeleton from "./skeleton";
+import SpinnerIcon from "../assets/icons/spinner.svg?react";
 
 export const buttonIconVariants = cva(
   `
-  inline-flex items-center justify-center cursor-pointer transition group
+  inline-flex items-center justify-center transition group
   `,
   {
     variants: {
@@ -19,7 +20,11 @@ export const buttonIconVariants = cva(
         sm: "w-6 h-6 p-1 rounded",
       },
       disabled: {
-        true: "opacity-50 pointer-events-none",
+        true: "opacity-50 cursor-default pointer-events-none",
+        false: "cursor-pointer",
+      },
+      handling: {
+        true: "pointer-events-none",
       },
     },
 
@@ -27,6 +32,7 @@ export const buttonIconVariants = cva(
       variant: "primary",
       size: "sm",
       disabled: false,
+      handling: false,
     },
   }
 );
@@ -52,9 +58,11 @@ export const buttonIconIconVariants = cva("transition", {
 
 interface ButtonIconProps
   extends VariantProps<typeof buttonIconVariants>,
-    Omit<React.ComponentProps<"button">, "size" | "disabled"> {
+    Omit<React.ComponentProps<"button">, "size"> {
   icon: React.ComponentProps<typeof Icon>["svg"];
   loading?: boolean;
+  disabled?: boolean;
+  handling?: boolean;
 }
 
 export default function ButtonIcon({
@@ -64,6 +72,7 @@ export default function ButtonIcon({
   className,
   icon,
   loading,
+  handling,
   ...props
 }: ButtonIconProps) {
   if (loading) {
@@ -80,15 +89,22 @@ export default function ButtonIcon({
   }
   return (
     <button
+      type="button"
+      disabled={disabled}
       className={buttonIconVariants({
         variant,
         size,
         disabled,
         className,
+        handling,
       })}
       {...props}
     >
-      <Icon svg={icon} className={buttonIconIconVariants({ variant, size })} />
+      <Icon
+        svg={handling ? SpinnerIcon : icon}
+        animate={handling}
+        className={buttonIconIconVariants({ variant, size })}
+      />
     </button>
   );
 }
