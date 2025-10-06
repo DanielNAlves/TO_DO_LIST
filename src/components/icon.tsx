@@ -1,5 +1,5 @@
 import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva, cx, type VariantProps } from "class-variance-authority";
 
 export const iconVariants = cva("", {
   variants: {
@@ -26,6 +26,9 @@ export default function Icon({
   ...props
 }: IconProps) {
   return (
-    <SvgComponent className={iconVariants({ animate, className })} {...props} />
+    <SvgComponent
+      className={cx(iconVariants({ animate }), className)}
+      {...props}
+    />
   );
 }
