@@ -1,21 +1,20 @@
-import useLocalStorage from "use-local-storage";
-import { TASKS_KEY, TaskState, type Task } from "../models/task";
 import React from "react";
+import useLocalStorage from "use-local-storage";
+
 import { delay } from "../helpers/utils";
+import { TASKS_KEY, TaskState, type Task } from "../models/task";
 
 export default function useTasks() {
-  const [tasksData] = useLocalStorage<Task[]>(TASKS_KEY, []);
   const [tasks, setTasks] = React.useState<Task[]>([]);
+  const [tasksData] = useLocalStorage<Task[]>(TASKS_KEY, []);
   const [isLoadingTasks, setIsLoadingTasks] = React.useState<boolean>(true);
 
   async function fetchTasks() {
     if (isLoadingTasks) {
-      console.time("Carregando tarefas...");
       await delay(2000);
       setIsLoadingTasks(false);
     }
     setTasks(tasksData);
-    console.timeEnd("Carregando tarefas...");
   }
 
   React.useEffect(() => {
