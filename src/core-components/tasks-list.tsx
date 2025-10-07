@@ -7,7 +7,15 @@ import { TaskState, type Task } from "../models/task";
 
 export default function TasksList() {
   const { tasks, isLoadingTasks } = useTasks();
-  const { prepareTask, updateTask, updateTaskStatus, deleteTask } = useTask();
+  const {
+    prepareTask,
+    updateTask,
+    updateTaskStatus,
+    deleteTask,
+    isUpdatingTask,
+    isDeletingTask,
+    updateTaskEdit,
+  } = useTask();
 
   function handleNewTask() {
     prepareTask();
@@ -34,36 +42,42 @@ export default function TasksList() {
         {!isLoadingTasks &&
           tasks.map((task) => (
             <TaskItem
-              key={task.id}
               task={task}
+              key={task.id}
               updateTask={updateTask}
-              updateTaskStatus={updateTaskStatus}
               deleteTask={deleteTask}
+              updateTaskEdit={updateTaskEdit}
+              isUpdatingTask={isUpdatingTask}
+              isDeletingTask={isDeletingTask}
+              updateTaskStatus={updateTaskStatus}
             />
           ))}
 
         {isLoadingTasks && (
           <>
             <TaskItem
+              loading
               task={{} as Task}
               updateTask={() => {}}
-              updateTaskStatus={() => {}}
               deleteTask={() => {}}
-              loading
+              updateTaskEdit={() => {}}
+              updateTaskStatus={() => {}}
             />
             <TaskItem
+              loading
               task={{} as Task}
               updateTask={() => {}}
-              updateTaskStatus={() => {}}
               deleteTask={() => {}}
-              loading
+              updateTaskEdit={() => {}}
+              updateTaskStatus={() => {}}
             />
             <TaskItem
+              loading
               task={{} as Task}
               updateTask={() => {}}
-              updateTaskStatus={() => {}}
               deleteTask={() => {}}
-              loading
+              updateTaskEdit={() => {}}
+              updateTaskStatus={() => {}}
             />
           </>
         )}
