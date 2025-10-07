@@ -14,6 +14,11 @@ Uma aplicação moderna de lista de tarefas construída com React, TypeScript e 
 - ⚡ **Estados de carregamento**: Feedback visual durante operações
 - 🔄 **Validação de duplicatas**: Previne criação de tarefas duplicadas
 
+
+## 🎨 Figma do projeto
+
+[Protótipo no Figma](https://www.figma.com/design/UcikZOWRGxpORWxxallPrk/Lista-de-Tarefas?node-id=0-1&p=f&m=dev)
+
 ## 🛠️ Tecnologias Utilizadas
 
 ### Frontend
@@ -179,36 +184,6 @@ src/
 - Contador de tarefas concluídas
 - Cálculo automático de progresso
 
-## 🚀 Melhorias Futuras
 
-- [ ] Filtros por status (todas, pendentes, concluídas)
-- [ ] Categorias ou tags para tarefas
-- [ ] Data de criação e prazo
-- [ ] Busca por tarefas
-- [ ] Ordenação personalizada
-- [ ] Exportação de dados
-- [ ] Modo escuro
-- [ ] Notificações
-- [ ] Sincronização com backend
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 👥 Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para:
-
-1. Fazer fork do projeto
-2. Criar uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abrir um Pull Request
-
-## 📞 Contato
-
-Para dúvidas ou sugestões, entre em contato através dos issues do repositório.
-
----
-
-Desenvolvido com ❤️ usando React, TypeScript e Tailwind CSS
+Desenvolvido com Rocketseat ❤️ usando React, TypeScript e Tailwind CSS
