@@ -10,4 +10,5 @@ export interface Task {
   title: string;
   concluded?: boolean;
   state?: TaskState;
+  edit: boolean;
 }
