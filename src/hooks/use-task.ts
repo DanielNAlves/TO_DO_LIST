@@ -1,43 +1,62 @@
+import { useState } from "react";
 import useLocalStorage from "use-local-storage";
-import { TASKS_KEY, TaskState, type Task } from "../models/task";
+
 import { delay } from "../helpers/utils";
-import React from "react";
+import { TASKS_KEY, TaskState, type Task } from "../models/task";
 
 export default function useTask() {
   const [tasks, setTasks] = useLocalStorage<Task[]>(TASKS_KEY, []);
-  const [isUpdatingTask, setIsUpdatingTask] = React.useState(false);
-  const [isDeletingTask, setIsDeletingTask] = React.useState(false);
+  const [isUpdatingTask, setIsUpdatingTask] = useState<boolean>(false);
+  const [isDeletingTask, setIsDeletingTask] = useState<boolean>(false);
 
   function prepareTask() {
     setTasks([
       ...tasks,
       {
-        id: Math.random().toString(36).substring(2, 9),
         title: "",
-        state: TaskState.Creating,
+        edit: true,
         concluded: false,
+        state: TaskState.Creating,
+        id: Math.random().toString(36).substring(2, 9),
       },
     ]);
   }
 
   async function updateTask(id: string, payload: { title: Task["title"] }) {
-    setIsUpdatingTask(true);
-    await delay(1000);
+    try {
+      setIsUpdatingTask(true);
+      await delay(1000);
 
-    setTasks(
-      tasks.map((task) =>
-        task.id === id
-          ? { ...task, state: TaskState.Created, ...payload }
-          : task
-      )
-    );
+      if (tasks.some((task) => task.title === payload.title && !task.edit)) {
+        alert("Tarefa ja adicionada!");
+        return;
+      }
 
-    setIsUpdatingTask(false);
+      setTasks(
+        tasks
+          .map((task) =>
+            task.id === id
+              ? { ...task, edit: false, state: TaskState.Created, ...payload }
+              : task
+          )
+          .sort((a, b) => Number(a.concluded) - Number(b.concluded))
+      );
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsUpdatingTask(false);
+    }
+  }
+
+  function updateTaskEdit(id: string, edit: boolean) {
+    setTasks(tasks.map((task) => (task.id === id ? { ...task, edit } : task)));
   }
 
   function updateTaskStatus(id: string, concluded: boolean) {
     setTasks(
-      tasks.map((task) => (task.id === id ? { ...task, concluded } : task))
+      tasks
+        .map((task) => (task.id === id ? { ...task, concluded } : task))
+        .sort((a, b) => Number(a.concluded) - Number(b.concluded))
     );
   }
 
@@ -58,5 +77,6 @@ export default function useTask() {
     deleteTask,
     isUpdatingTask,
     isDeletingTask,
+    updateTaskEdit,
   };
 }
